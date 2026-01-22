@@ -2,8 +2,17 @@
 
 A full-stack web application that ingests AI-generated events from CCTV computer vision systems and displays real-time productivity metrics for a manufacturing factory.
 
+## 🌐 Live Demo
+
+| Service | URL |
+|---------|-----|
+| **Dashboard (Frontend)** | [https://laudable-spirit-production.up.railway.app/](https://laudable-spirit-production.up.railway.app/) |
+| **API (Backend)** | [https://ai-worker-productivity-dashboard-production.up.railway.app/](https://ai-worker-productivity-dashboard-production.up.railway.app/) |
+| **API Documentation** | [https://ai-worker-productivity-dashboard-production.up.railway.app/docs](https://ai-worker-productivity-dashboard-production.up.railway.app/docs) |
+
 ## 📋 Table of Contents
 
+- [Live Demo](#-live-demo)
 - [Overview](#overview)
 - [How It Works](#how-it-works)
 - [Quick Start](#quick-start)
