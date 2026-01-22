@@ -2,8 +2,10 @@
 
 import type { DashboardSummary, WorkerMetrics, WorkstationMetrics, SeedDataResult } from './types';
 
-// Use direct backend URL in development, proxy in production
-const API_BASE = import.meta.env.DEV ? 'http://localhost:8000/api/v1' : '/api/v1';
+// Use VITE_API_BASE_URL env variable for production, localhost for development
+const API_BASE = import.meta.env.VITE_API_BASE_URL 
+  ? `${import.meta.env.VITE_API_BASE_URL}/api/v1`
+  : (import.meta.env.DEV ? 'http://localhost:8000/api/v1' : '/api/v1');
 
 async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${endpoint}`, {
