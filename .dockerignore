@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Dependencies (will be installed in container)
+node_modules
+__pycache__
+venv
+env
+
+# IDE
+.idea
+.vscode
+
+# Build artifacts
+dist
+build
+*.egg-info
+
+# Database (will be created in container)
+*.db
+*.sqlite
+
+# Documentation
+*.md
+!README.md
+
+# Tests
+tests
+__tests__
+*.test.*
+.coverage
+.pytest_cache
+
+# Misc
+.DS_Store
+*.log
+
