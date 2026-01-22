@@ -355,111 +355,124 @@ function App() {
         </section>
       </div>
 
-      {/* Worker Detail Panel */}
+      {/* Worker Detail Modal */}
       {selectedWorker && (
-        <div className="detail-panel">
-          <div className="detail-panel-header">
-            <h3 className="detail-panel-title">
-              <div className="entity-avatar" style={{ width: 40, height: 40 }}>
-                {selectedWorker.worker_name.split(' ').map(n => n[0]).join('')}
+        <div className="modal-overlay" onClick={() => setSelectedWorker(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3 className="modal-title">
+                <div className="entity-avatar" style={{ width: 48, height: 48, fontSize: '1rem' }}>
+                  {selectedWorker.worker_name.split(' ').map(n => n[0]).join('')}
+                </div>
+                <div>
+                  <span className="modal-name">{selectedWorker.worker_name}</span>
+                  <span className="badge">{selectedWorker.worker_id}</span>
+                </div>
+              </h3>
+              <button className="close-btn" onClick={() => setSelectedWorker(null)}>
+                <X size={20} />
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="detail-grid">
+                <div className="detail-item">
+                  <div className="detail-item-label">Total Active Time</div>
+                  <div className="detail-item-value">{formatTime(selectedWorker.total_active_time_minutes)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Total Idle Time</div>
+                  <div className="detail-item-value">{formatTime(selectedWorker.total_idle_time_minutes)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Total Absent Time</div>
+                  <div className="detail-item-value">{formatTime(selectedWorker.total_absent_time_minutes)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Utilization Rate</div>
+                  <div className="detail-item-value highlight">{selectedWorker.utilization_percentage.toFixed(1)}%</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Units Produced</div>
+                  <div className="detail-item-value">{formatNumber(selectedWorker.total_units_produced)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Production Rate</div>
+                  <div className="detail-item-value">{selectedWorker.units_per_hour.toFixed(1)}/hr</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Total Events</div>
+                  <div className="detail-item-value">{formatNumber(selectedWorker.event_count)}</div>
+                </div>
               </div>
-              {selectedWorker.worker_name}
-              <span className="badge">{selectedWorker.worker_id}</span>
-            </h3>
-            <button className="close-btn" onClick={() => setSelectedWorker(null)}>
-              <X size={18} />
-            </button>
-          </div>
-          <div className="detail-grid">
-            <div className="detail-item">
-              <div className="detail-item-label">Total Active Time</div>
-              <div className="detail-item-value">{formatTime(selectedWorker.total_active_time_minutes)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Total Idle Time</div>
-              <div className="detail-item-value">{formatTime(selectedWorker.total_idle_time_minutes)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Total Absent Time</div>
-              <div className="detail-item-value">{formatTime(selectedWorker.total_absent_time_minutes)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Utilization Rate</div>
-              <div className="detail-item-value">{selectedWorker.utilization_percentage.toFixed(1)}%</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Units Produced</div>
-              <div className="detail-item-value">{formatNumber(selectedWorker.total_units_produced)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Production Rate</div>
-              <div className="detail-item-value">{selectedWorker.units_per_hour.toFixed(1)}/hr</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Total Events</div>
-              <div className="detail-item-value">{formatNumber(selectedWorker.event_count)}</div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Workstation Detail Panel */}
+      {/* Workstation Detail Modal */}
       {selectedWorkstation && (
-        <div className="detail-panel">
-          <div className="detail-panel-header">
-            <h3 className="detail-panel-title">
-              <div className="entity-avatar" style={{ 
-                width: 40, 
-                height: 40,
-                background: selectedWorkstation.station_type?.toLowerCase().includes('assembly') 
-                  ? 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)'
-                  : selectedWorkstation.station_type?.toLowerCase().includes('quality')
-                  ? 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)'
-                  : selectedWorkstation.station_type?.toLowerCase().includes('packaging')
-                  ? 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)'
-                  : 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)'
-              }}>
-                {selectedWorkstation.station_id}
+        <div className="modal-overlay" onClick={() => setSelectedWorkstation(null)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3 className="modal-title">
+                <div className="entity-avatar" style={{ 
+                  width: 48, 
+                  height: 48,
+                  fontSize: '1rem',
+                  background: selectedWorkstation.station_type?.toLowerCase().includes('assembly') 
+                    ? 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)'
+                    : selectedWorkstation.station_type?.toLowerCase().includes('quality')
+                    ? 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)'
+                    : selectedWorkstation.station_type?.toLowerCase().includes('packaging')
+                    ? 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)'
+                    : 'linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%)'
+                }}>
+                  {selectedWorkstation.station_id}
+                </div>
+                <div>
+                  <span className="modal-name">{selectedWorkstation.station_name}</span>
+                  {selectedWorkstation.station_type && (
+                    <span className={`badge ${getStationTypeBadgeClass(selectedWorkstation.station_type)}`}>
+                      {selectedWorkstation.station_type}
+                    </span>
+                  )}
+                </div>
+              </h3>
+              <button className="close-btn" onClick={() => setSelectedWorkstation(null)}>
+                <X size={20} />
+              </button>
+            </div>
+            <div className="modal-body">
+              <div className="detail-grid">
+                <div className="detail-item">
+                  <div className="detail-item-label">Total Occupancy Time</div>
+                  <div className="detail-item-value">{formatTime(selectedWorkstation.occupancy_time_minutes)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Working Time</div>
+                  <div className="detail-item-value">{formatTime(selectedWorkstation.working_time_minutes)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Idle Time</div>
+                  <div className="detail-item-value">{formatTime(selectedWorkstation.idle_time_minutes)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Utilization Rate</div>
+                  <div className="detail-item-value highlight">{selectedWorkstation.utilization_percentage.toFixed(1)}%</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Units Produced</div>
+                  <div className="detail-item-value">{formatNumber(selectedWorkstation.total_units_produced)}</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Throughput Rate</div>
+                  <div className="detail-item-value">{selectedWorkstation.throughput_rate.toFixed(1)}/hr</div>
+                </div>
+                <div className="detail-item">
+                  <div className="detail-item-label">Total Events</div>
+                  <div className="detail-item-value">{formatNumber(selectedWorkstation.event_count)}</div>
+                </div>
               </div>
-              {selectedWorkstation.station_name}
-              {selectedWorkstation.station_type && (
-                <span className={`badge ${getStationTypeBadgeClass(selectedWorkstation.station_type)}`}>
-                  {selectedWorkstation.station_type}
-                </span>
-              )}
-            </h3>
-            <button className="close-btn" onClick={() => setSelectedWorkstation(null)}>
-              <X size={18} />
-            </button>
-          </div>
-          <div className="detail-grid">
-            <div className="detail-item">
-              <div className="detail-item-label">Total Occupancy Time</div>
-              <div className="detail-item-value">{formatTime(selectedWorkstation.occupancy_time_minutes)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Working Time</div>
-              <div className="detail-item-value">{formatTime(selectedWorkstation.working_time_minutes)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Idle Time</div>
-              <div className="detail-item-value">{formatTime(selectedWorkstation.idle_time_minutes)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Utilization Rate</div>
-              <div className="detail-item-value">{selectedWorkstation.utilization_percentage.toFixed(1)}%</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Units Produced</div>
-              <div className="detail-item-value">{formatNumber(selectedWorkstation.total_units_produced)}</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Throughput Rate</div>
-              <div className="detail-item-value">{selectedWorkstation.throughput_rate.toFixed(1)}/hr</div>
-            </div>
-            <div className="detail-item">
-              <div className="detail-item-label">Total Events</div>
-              <div className="detail-item-value">{formatNumber(selectedWorkstation.event_count)}</div>
             </div>
           </div>
         </div>

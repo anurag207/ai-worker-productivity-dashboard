@@ -43,37 +43,37 @@ async def lifespan(app: FastAPI):
     - Generate dummy events if database is empty
     """
     # Startup
-    print("🚀 Starting AI Worker Productivity Dashboard API...")
+    print(" Starting AI Worker Productivity Dashboard API...")
     
     # Initialize database
     init_db()
-    print("✅ Database initialized")
+    print(" Database initialized")
     
     # Seed sample data
     db = SessionLocal()
     try:
         workers, stations = seed_sample_data(db)
         if workers > 0 or stations > 0:
-            print(f"✅ Seeded {workers} workers and {stations} workstations")
+            print(f" Seeded {workers} workers and {stations} workstations")
         
         # Generate dummy data if database is empty
         event_count = db.query(Event).count()
         if event_count == 0:
-            print("📊 Generating initial dummy data...")
+            print(" Generating initial dummy data...")
             events = generate_dummy_events(db, num_days=7, events_per_day=100)
-            print(f"✅ Generated {events} events")
+            print(f" Generated {events} events")
         else:
-            print(f"📊 Database contains {event_count} events")
+            print(f"Database contains {event_count} events")
     finally:
         db.close()
     
-    print("🎯 API ready at http://localhost:8000")
-    print("📚 Documentation at http://localhost:8000/docs")
+    print("API ready at http://localhost:8000")
+    print(" Documentation at http://localhost:8000/docs")
     
     yield  # Application runs here
     
     # Shutdown
-    print("👋 Shutting down...")
+    print(" Shutting down...")
 
 
 # Create FastAPI application

@@ -2,10 +2,13 @@
 
 import type { DashboardSummary, WorkerMetrics, WorkstationMetrics, SeedDataResult } from './types';
 
-// Use VITE_API_BASE_URL env variable for production, localhost for development
+// Production backend URL
+const PRODUCTION_API_URL = 'https://ai-worker-productivity-dashboard-production.up.railway.app/api/v1';
+
+// Use VITE_API_BASE_URL env variable, localhost for dev, or production URL as fallback
 const API_BASE = import.meta.env.VITE_API_BASE_URL 
   ? `${import.meta.env.VITE_API_BASE_URL}/api/v1`
-  : (import.meta.env.DEV ? 'http://localhost:8000/api/v1' : '/api/v1');
+  : (import.meta.env.DEV ? 'http://localhost:8000/api/v1' : PRODUCTION_API_URL);
 
 async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${endpoint}`, {
